@@ -15,17 +15,17 @@ public class Store {
     public void addProduct(String productType, String name, int price, int amt){
         if (productType.equals("Meat")){
             this.products.add(new Meat(name, price, amt));
-            this.balance -= (price * amt);
+            this.balance -= ((price * amt)/2);
         }
         if (productType.equals("Fruit")){
             this.products.add(new Fruit(name, price, amt));
-            this.balance -= (price * amt);
+            this.balance -= ((price * amt)/2);
         }
     }
 
     public void sellProduct(String productSold, int amt){
         for(Product product : products){
-            if(product.name.equals(productSold)){
+            if(product.name.equals(productSold) && product.amt > 0){
                 this.balance += (product.price * amt);
                 product.amt -= amt;
                 System.out.println("\nTotal Sale Amount = $" + (product.price * amt) + "\n");
