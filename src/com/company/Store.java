@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Store {
@@ -30,13 +31,7 @@ public class Store {
             if(product.name.equals(productSold) && product.amt > 0){
                 this.balance += (product.price * amt);
                 product.amt -= amt;
-                if(!sales.contains(product.name))
                 sales.add(new Product(product.name, product.price, amt));
-                else{
-                    for (Product product1 : sales)
-                        if(product.name == product1.name)
-                            product1.amt += amt;
-                }
                 System.out.println("\nTotal Sale Amount = $" + (product.price * amt) + "\n");
             }
         }
@@ -48,13 +43,28 @@ public class Store {
     }
 
     public void calculateDailySales() {
+        HashMap<String, Integer> map = new HashMap<>();
         int totalSales = 0;
         System.out.println("\n__________________________________________________________");
         System.out.println("                       SALES REPORT                       ");
         System.out.println("----------------------------------------------------------");
         for(Product product : sales){
-            System.out.println("Felicia sold " + product.amt + " " + product.name + "(s) for $" + product.price + " each, for a total of $" + (product.amt * product.price));
-            totalSales += (product.amt * product.price);
+            totalSales += (product.price * product.amt);
+            if(!map.containsKey(product.name))
+            map.put(product.name, product.amt);
+            else if(map.containsKey(product.name)){
+                Integer newSale = map.get(product.name) + product.amt;
+                map.put(product.name, newSale);
+            }
+        }
+
+        for(String string : map.keySet()){
+            int price = 0;
+            for(Product product : sales) {
+                if (product.name.equals(string))
+                    price = product.price;
+            }
+            System.out.println("Felicia sold " + map.get(string) + " " + string + "(s) for $" + price + " each, for a total of $" + (price * map.get(string)));
         }
         System.out.println("__________________________________________________________");
         System.out.println("Felicia's total sales amount for the day was $" + totalSales);
