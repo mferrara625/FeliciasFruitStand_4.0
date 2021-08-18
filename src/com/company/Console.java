@@ -41,9 +41,12 @@ public class Console {
     }
 
     private static void sellProductInput(Store store, Scanner scan) {
-        System.out.println("Enter name of product to sell");
+        System.out.println("Select product to sell: ");
+        for(int i = 0; i < store.products.size(); i++){
+            System.out.println((i + 1) + ". " +store.products.get(i).name);
+        }
         String nameOfSoldProduct = scan.nextLine();
-        System.out.println("Enter quantity of " + nameOfSoldProduct + ": ");
+        System.out.println("Enter quantity of " + store.products.get(Integer.parseInt(nameOfSoldProduct) - 1).name + ": ");
         int numProductsSold = scan.nextInt();
         scan.nextLine();
         store.sellProduct(nameOfSoldProduct, numProductsSold);

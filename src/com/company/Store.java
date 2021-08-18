@@ -27,15 +27,14 @@ public class Store {
     }
 
     public void sellProduct(String productSold, int amt){
-        for(Product product : products){
-            if(product.name.equals(productSold) && product.amt > 0){
-                this.balance += (product.price * amt);
-                product.amt -= amt;
-                sales.add(new Product(product.name, product.price, amt));
-                System.out.println("\nTotal Sale Amount = $" + (product.price * amt) + "\n");
-            }
+        if(products.get(Integer.parseInt(productSold) - 1).amt >= amt) {
+            products.get(Integer.parseInt(productSold) - 1);
+            products.get(Integer.parseInt(productSold) - 1).amt -= amt;
+            balance += (products.get(Integer.parseInt(productSold) - 1).price * products.get(Integer.parseInt(productSold) - 1).amt);
+            sales.add((new Product(products.get(Integer.parseInt(productSold) - 1).name, products.get(Integer.parseInt(productSold) - 1).price, amt)));
+            System.out.println("\nTotal Sale Amount = $" + (products.get(Integer.parseInt(productSold) - 1).price * amt) + "\n");
+            products.removeIf(product -> product.amt == 0);
         }
-        products.removeIf(product -> product.amt == 0);
     }
 
     public void throwAway(String expiredProduct){
