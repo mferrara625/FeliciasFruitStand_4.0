@@ -15,6 +15,7 @@ public class Console {
         System.out.println("3. Sale");
         System.out.println("4. View Inventory");
         System.out.println("5. View Store Balance");
+        System.out.println("6. Close Register/Sign Off");
         String input = scan.nextLine();
         if(input.equals("1")){
             addProductInput(store, scan);
@@ -26,12 +27,14 @@ public class Console {
             viewInventory(store);
         } else if(input.equals("5")){
             System.out.println("\nStore Balance = $" + store.balance);
+        } else if(input.equals("6")){
+            store.isStoreOpen = false;
         }
     }
 
     private static void viewInventory(Store store) {
         System.out.println("\t        #########################");
-        System.out.println("\t        ###     INVENTORY     ###");
+        System.out.println("\t        ####    INVENTORY    ####");
         System.out.println("\t        #########################\n");
         for(Product product : store.products)
         System.out.println(product);
@@ -53,7 +56,9 @@ public class Console {
     }
 
     private static void addProductInput(Store store, Scanner scan) {
-        System.out.println("Enter Product Type (Meat or Fruit): ");
+        System.out.println("Choose product type: \n" +
+                "1. Meat\n" +
+                "2. Fruit\n");
         String productType = scan.nextLine();
         System.out.println("Enter name of product: ");
         String productName = scan.nextLine();
