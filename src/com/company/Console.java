@@ -25,7 +25,7 @@ public class Console {
         } else if(input.equals("4")){
             viewInventory(store);
         } else if(input.equals("5")){
-            System.out.println("Store Balance = $" + store.balance);
+            System.out.println("\nStore Balance = $" + store.balance);
         }
     }
 

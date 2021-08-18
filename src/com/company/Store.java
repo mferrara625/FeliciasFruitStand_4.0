@@ -28,6 +28,7 @@ public class Store {
             if(product.name.equals(productSold)){
                 this.balance += (product.price * amt);
                 product.amt -= amt;
+                System.out.println("\nTotal Sale Amount = $" + (product.price * amt) + "\n");
             }
         }
     }
