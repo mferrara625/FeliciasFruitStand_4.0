@@ -3,9 +3,7 @@ package com.company;
 public class Meat extends Product{
 
     public Meat(String name, int price, int amt){
-        this.name = name;
-        this.price = price;
-        this.amt = amt;
+        super(name, price, amt);
     }
 
     public String toString(){

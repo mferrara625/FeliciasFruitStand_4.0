@@ -10,29 +10,28 @@ public class Store {
     List<Product> sales = new ArrayList<>();
     boolean isStoreOpen = true;
 
-
     public Store(int balance){
         this.balance = balance;
     }
 
     public void addProduct(String productType, String name, int price, int amt){
         if (productType.equals("1")){
-            this.products.add(new Meat(name, price, amt));
-            this.balance -= ((price * amt)/2);
+            products.add(new Meat(name, price, amt));
+            balance -= ((price * amt)/2);
         }
         if (productType.equals("2")){
-            this.products.add(new Fruit(name, price, amt));
-            this.balance -= ((price * amt)/2);
+            products.add(new Fruit(name, price, amt));
+            balance -= ((price * amt)/2);
         }
     }
 
     public void sellProduct(String productSold, int amt){
-        if(products.get(Integer.parseInt(productSold) - 1).amt >= amt) {
-            products.get(Integer.parseInt(productSold) - 1);
-            products.get(Integer.parseInt(productSold) - 1).amt -= amt;
-            balance += (products.get(Integer.parseInt(productSold) - 1).price * products.get(Integer.parseInt(productSold) - 1).amt);
-            sales.add((new Product(products.get(Integer.parseInt(productSold) - 1).name, products.get(Integer.parseInt(productSold) - 1).price, amt)));
-            System.out.println("\nTotal Sale Amount = $" + (products.get(Integer.parseInt(productSold) - 1).price * amt) + "\n");
+        int a = (Integer.parseInt(productSold) - 1);
+        if(products.get(a).amt >= amt) {
+            products.get(a).amt -= amt;
+            balance += (products.get(a).price * products.get(a).amt);
+            sales.add((new Product(products.get(a).name, products.get(a).price, amt)));
+            System.out.println("\nTotal Sale Amount = $" + (products.get(a).price * amt) + "\n");
             products.removeIf(product -> product.amt == 0);
         }
     }

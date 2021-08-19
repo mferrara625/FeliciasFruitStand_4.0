@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Console {
 
-
     public static void displayOptions(Store store){
         Scanner scan = new Scanner(System.in);
         System.out.println("\nRegister 1");
@@ -17,18 +16,13 @@ public class Console {
         System.out.println("5. View Store Balance");
         System.out.println("6. Close Register/Sign Off");
         String input = scan.nextLine();
-        if(input.equals("1")){
-            addProductInput(store, scan);
-        } else if(input.equals("2")){
-            expiredProductInput(store, scan);
-        } else if(input.equals("3")){
-            sellProductInput(store, scan);
-        } else if(input.equals("4")){
-            viewInventory(store);
-        } else if(input.equals("5")){
-            System.out.println("\nStore Balance = $" + store.balance);
-        } else if(input.equals("6")){
-            store.isStoreOpen = false;
+        switch (input) {
+            case "1" -> addProductInput(store, scan);
+            case "2" -> expiredProductInput(store, scan);
+            case "3" -> sellProductInput(store, scan);
+            case "4" -> viewInventory(store);
+            case "5" -> System.out.println("\nStore Balance = $" + store.balance);
+            case "6" -> store.isStoreOpen = false;
         }
     }
 
@@ -43,10 +37,10 @@ public class Console {
     private static void sellProductInput(Store store, Scanner scan) {
         System.out.println("Select product to sell: ");
         for(int i = 0; i < store.products.size(); i++){
-            System.out.println((i + 1) + ". " +store.products.get(i).name);
+            System.out.println((i + 1) + ". " + store.products.get(i).name);
         }
         String nameOfSoldProduct = scan.nextLine();
-        System.out.println("Enter quantity of " + store.products.get(Integer.parseInt(nameOfSoldProduct) - 1).name + ": ");
+        System.out.println("Enter quantity of " + store.products.get(Integer.parseInt(nameOfSoldProduct) - 1).name + " ("+ store.products.get(Integer.parseInt(nameOfSoldProduct) - 1).amt + " available) : ");
         int numProductsSold = scan.nextInt();
         scan.nextLine();
         store.sellProduct(nameOfSoldProduct, numProductsSold);
